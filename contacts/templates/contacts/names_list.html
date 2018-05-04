@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact list</title>
+</head>
+<body>
+<h1> Наши герои </h1>
+
+{% for name in names %}
+    <p> {{ name.second_name }} {{ name.first_name }} </p>
+{% endfor %}
+</body>
+</html>
