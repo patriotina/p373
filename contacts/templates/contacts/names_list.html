@@ -6,9 +6,13 @@
 </head>
 <body>
 <h1> Наши герои </h1>
-
+{{ names }}
 {% for name in names %}
-    <p> {{ name.second_name }} {{ name.first_name }} </p>
+    <p> {{ name.second_name }} {{ name.first_name }} </br>
+    {% for contact in name.item_set.all %}
+        {{ contact }}
+    {% endfor %}
+    </p>
 {% endfor %}
 </body>
 </html>
