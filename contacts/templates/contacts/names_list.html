@@ -7,11 +7,12 @@
 <body>
 <h1> Наши герои </h1>
 {{ names }}
+{#  { # contacts }} #}
 {% for name in names %}
     <p> {{ name.second_name }} {{ name.first_name }} </br>
-    {% for contact in name.item_set.all %}
-        {{ contact }}
-    {% endfor %}
+    {# for contact in contacts %}  #}
+    {#     {{ contact.contact_data }}  #}
+    {#   endfor %}  #}
     </p>
 {% endfor %}
 </body>
