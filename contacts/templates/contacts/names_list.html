@@ -1,19 +1,30 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Contact list</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/contactlist.css' %}">
+
 </head>
 <body>
 <h1> Наши герои </h1>
-{{ names }}
-{#  { # contacts }} #}
-{% for name in names %}
-    <p> {{ name.second_name }} {{ name.first_name }} </br>
-    {# for contact in contacts %}  #}
-    {#     {{ contact.contact_data }}  #}
-    {#   endfor %}  #}
-    </p>
-{% endfor %}
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+            {% for name in names %}
+                <div class="persona">
+                    <p> <h2>{{ name.second_name }} {{ name.first_name }} </h2></p>
+                        <p>Моб.: {{ name.mobile_phone }} </p>
+                        <p>Рабочий тлф.: {{ name.work_phone }} </p>
+                        <p>e-mail: <a href="mailto:{{ name.email }}">{{ name.email }}</a></p>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 </body>
 </html>
