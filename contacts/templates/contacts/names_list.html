@@ -11,16 +11,17 @@
 </head>
 <body>
 <h1> Наши герои </h1>
+<a href="department.html">Отделы</a>
 <div class="content container">
     <div class="row">
         <div class="col-md-8">
             {% for name in names %}
                 <div class="persona">
                     <p> <h2>{{ name.second_name }} {{ name.first_name }} </h2></p>
+                        <p>{{ name.persona_dep }} - {{ name.persona_role }}</p>
                         <p>Моб.: {{ name.mobile_phone }} </p>
                         <p>Рабочий тлф.: {{ name.work_phone }} </p>
                         <p>e-mail: <a href="mailto:{{ name.email }}">{{ name.email }}</a></p>
-
                 </div>
             {% endfor %}
         </div>
