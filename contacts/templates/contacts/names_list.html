@@ -11,7 +11,10 @@
 </head>
 <body>
 <h1> Наши герои </h1>
-<a href="department.html">Отделы</a>
+<a href=''>Отделы</a>
+{% for dep in deps %}
+    <p> <a href="{% url 'departments' pk=dep.pk %}"> {{ dep.pk }} - {{ dep.dep_name }} </a></p>
+{% endfor %}
 <div class="content container">
     <div class="row">
         <div class="col-md-8">
