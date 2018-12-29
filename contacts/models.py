@@ -21,7 +21,7 @@ class Role(models.Model):
 class Names(models.Model):
     first_name = models.CharField(max_length=50)
     second_name = models.CharField(max_length=80)
-    mobile_phone = models.CharField(max_length=10)
+    mobile_phone = models.CharField(max_length=11)
     work_phone = models.CharField(max_length=10)
     email = models.EmailField(max_length=50)
     created_date = models.DateTimeField(default=timezone.now)
