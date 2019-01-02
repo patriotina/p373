@@ -17,5 +17,5 @@ def department_list(request, pk):
     names = Names.objects.filter(persona_dep=pk)
     deps = Department.objects.filter().order_by('dep_name')
     #names = Names.objects.filter().order_by('second_name')
-    return render(request, 'contacts/department.html', {'names': names, 'deps': deps})
+    return render(request, 'contacts/names_list.html', {'names': names, 'deps': deps})
 

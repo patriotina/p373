@@ -16,18 +16,33 @@
 <body>
 <h1> Сотрудники ТапТакси </h1>
 
-<a href="/">Все сотрудники</a>
-<div class="dropdown show">
-<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Отделы
-  </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">TapTaxi</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      {% for dep in deps %}
-        <a class="dropdown-item" href="{% url 'departments' pk=dep.pk %}"> {{ dep.pk }} - {{ dep.dep_name }}</a>
-      {% endfor %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+    <li class="nav-item dropdown">
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Отделы
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {% for dep in deps %}
+                    <a class="dropdown-item" href="{% url 'departments' pk=dep.pk %}"> {{ dep.pk }} - {{ dep.dep_name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </li>
   </div>
-</div>
+</nav>
 
 <div class="content container">
     <div class="row">
