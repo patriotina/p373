@@ -27,13 +27,20 @@ class Names(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     persona_dep = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
     persona_role = models.ForeignKey(Role, on_delete=models.DO_NOTHING)
+    persona_photo = models.ImageField(upload_to='imgs', max_length=50, default='imgs/nophoto.png')
+
 
     def publish(self):
         seflf.created_date = timezone.now()
         self.save()
 
+
     def __str__(self):
         return self.second_name + ' ' + self.first_name
+
+
+    def image_tag(self):
+        return '<img src="' + str(self.persona_photo) + '" width = "150" height = "150" />'
 
 
 class ContactType(models.Model):

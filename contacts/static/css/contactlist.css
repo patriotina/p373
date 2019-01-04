@@ -7,9 +7,14 @@ h1 {
 }
 
 .persona {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 .persona h1 a, .persona h1 a:visited {
     color: #000000;
+}
+
+.card-header {
+    padding-top: 1px;
+    padding-bottom: 1px;
 }

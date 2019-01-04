@@ -58,20 +58,30 @@
                    <div class="persona">
                     <div class="card-header" id="headingOne">
                       <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ name.pk }}" aria-expanded="true" aria-controls="collapse{{ name.pk }}">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ name.pk }}" aria-expanded="false" aria-controls="collapse{{ name.pk }}">
 
 
-                    <p> <h2>{{ name.second_name }} {{ name.first_name }} </h2></p>
+                     <h3>{{ name.second_name }} {{ name.first_name }} </h3>
 
                          </button>
+                          (<i> {{ name.persona_dep }} - {{ name.persona_role }} </i> )
                       </h5>
+
                     </div>
-                     <div id="collapse{{ name.pk }}" class="collapse show" aria-labelledby="heading{{ name.pk }}" data-parent="#accordion">
+                     <div id="collapse{{ name.pk }}" class="collapse" aria-labelledby="heading{{ name.pk }}" data-parent="#accordion">
                         <div class="card-body">
-                            <p>{{ name.persona_dep }} - {{ name.persona_role }}</p>
-                            <p>Моб.: {{ name.mobile_phone }} </p>
-                            <p>Рабочий тлф.: {{ name.work_phone }} </p>
-                            <p>e-mail: <a href="mailto:{{ name.email }}">{{ name.email }}</a></p>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <p><img src="{{ MEDIA_URL }}{{ name.persona_photo.url }}" width="150" height="150" /></p>
+                                    </div>
+                                    <div class="col">
+                                        <p>Моб.: {{ name.mobile_phone }} </p>
+                                        <p>Рабочий тлф.: {{ name.work_phone }} </p>
+                                        <p>e-mail: <a href="mailto:{{ name.email }}">{{ name.email }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                   </div>
