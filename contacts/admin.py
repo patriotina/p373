@@ -4,7 +4,7 @@ from django.utils.html import format_html
 
 
 class NamesList(admin.ModelAdmin):
-    list_display = [ 'second_name', 'first_name', 'pictumb','persona_photo' ]
+    list_display = [ 'second_name', 'first_name', 'pictumb','email' ]
 
     def pictumb(self, obj):
         return format_html('<img src="/media/{}" width=50px />'.format(obj.persona_photo))
