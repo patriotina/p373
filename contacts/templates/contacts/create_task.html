@@ -42,13 +42,39 @@
         </div>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="issues">Задачи <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/issues">Задачи <span class="sr-only">(current)</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="create_task">Нужна помощь! <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/create_task">Нужна помощь! <span class="sr-only">(current)</span></a>
     </li>
   </div>
 </nav>
-    <h1>Подавай свою заявку!</h1>
+    <h1>Подать заявку!</h1>
+
+    <form method="get" action="/createissue">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p> Тема обращения: <br/>
+        <input type="text" style="width:300px" name="summary"><br/>
+        <p>Город:</p>
+        <select name="issue-city" style="width:300px">
+            {% for city in cities %}
+                <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+        </select><br/>
+
+        Классификатор: <br/>
+        <select name="prclass" style="width:300px">
+            <option disabled>Определите область проблемы</option>
+            {% for category in pclass %}
+                <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select></p>
+        Описание поломки: <br/>
+        <input type="text" style="height:200px" size="30" name="textissue"><br/>
+        <button type="submit">Submit</button>
+    </form>
+    {{ issuetext }}
+
 </body>
 </html>
