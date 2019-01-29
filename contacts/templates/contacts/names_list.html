@@ -61,15 +61,15 @@
                   <div class="card">
                    <div class="persona">
                     <div class="card-header" id="headingOne">
-                      <h5 class="mb-0">
+                      <div class="mb-0">
                         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ name.pk }}" aria-expanded="false" aria-controls="collapse{{ name.pk }}">
 
 
-                     <h3>{{ name.second_name }} {{ name.first_name }} </h3>
+                     <h5>{{ name.second_name }} {{ name.first_name }} </h5>
 
                          </button>
                           (<i> {{ name.persona_dep }} - {{ name.persona_role }} </i> )
-                      </h5>
+                      </div>
 
                     </div>
                      <div id="collapse{{ name.pk }}" class="collapse" aria-labelledby="heading{{ name.pk }}" data-parent="#accordion">

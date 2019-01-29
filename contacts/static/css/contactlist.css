@@ -18,3 +18,35 @@ h1 {
     padding-top: 1px;
     padding-bottom: 1px;
 }
+
+.acc-header {
+    padding: 5px 0;
+    font-size: 14px;
+}
+
+.collapse {
+    font-size: 14px;
+}
+
+.status {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.descr {
+    margin-bottom: 20px;
+}
+
+.descr__title, .comments__title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.comment:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+.comment + .comment {
+    margin-top: 10px;
+}

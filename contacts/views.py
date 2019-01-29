@@ -74,7 +74,9 @@ def department_list(request, pk):
 #List of user's issues with statuses
 def issues_list(request):
     jira = JIRA(basic_auth=(jira_user, jira_token), options = {'server': jira_server})
-    issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc')
+    issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc',
+                                fields= 'created, comment, resolution, description, assignee, customfield_10517, summary, status',
+                                expand='changelog',)
     for issue in issues:
         issue.fields.created = datetime.strptime(issue.fields.created, '%Y-%m-%dT%H:%M:%S.%f%z')
 
