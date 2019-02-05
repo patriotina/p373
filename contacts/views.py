@@ -39,7 +39,7 @@ def sendtojira(request):
         "customfield_10517": {"value": problemclass},
     }
 
-    #new_issue = jira.create_issue(fields=issue_dict)
+    new_issue = jira.create_issue(fields=issue_dict)
 
     return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
 
