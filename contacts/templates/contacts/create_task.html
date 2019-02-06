@@ -58,8 +58,8 @@
         <input type="text" style="width:300px" name="summary"><br/>
         <p>Город:</p>
         <select name="issue-city" style="width:300px">
-            {% for city in cities %}
-                <option value="{{ city }}">{{ city }}</option>
+            {% for city in cities|dictsort:"city"%}
+                <option value="{{ city.city }}">{{ city.city }}</option>
             {% endfor %}
         </select><br/>
 
@@ -71,7 +71,7 @@
             {% endfor %}
         </select></p>
         Описание поломки: <br/>
-        <input type="text" style="height:200px" size="30" name="textissue"><br/>
+        <textarea style="height:200px; width:300px" size="30" name="textissue"></textarea><br/>
         <button type="submit">Submit</button>
     </form>
     {{ issuetext }}
