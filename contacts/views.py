@@ -36,7 +36,8 @@ def sendtojira(request):
         'summary': city + ':' + summary,
         'description': str(issuetext),
         'issuetype': {'name': 'Обращение_клиента'},
-        "customfield_10517": {"value": problemclass},
+        'customfield_10517': {'value': problemclass},
+        'assignee': {'name': 'eh'},
     }
 
     new_issue = jira.create_issue(fields=issue_dict)
