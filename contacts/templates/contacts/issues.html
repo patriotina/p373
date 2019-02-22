@@ -29,8 +29,8 @@
       </li>
 
     <li class="nav-item dropdown">
-        <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="active dropdown show">
+            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Отделы
             </a>
 
@@ -76,9 +76,11 @@
                                 {% if issue.fields.status.name == "Закрыто" %}
                                     <div class="col-md-2 col-lg-1"><span class="badge badge-success">{{ issue.fields.status.name }}</span></div>
                                 {% elif issue.fields.status.name == 'в очереди'%}
-                                    <div class="col-md-2 col-lg-1"><span class="badge badge-warning">{{ issue.fields.status.name }}</span></div>
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-danger">{{ issue.fields.status.name }}</span></div>
                                 {% elif issue.fields.status.name == 'Готово'%}
                                     <div class="col-md-2 col-lg-1"><span class="badge badge-info">{{ issue.fields.status.name }}</span></div>
+                                {% elif  issue.fields.status.name == 'В работе' %}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-warning">{{ issue.fields.status.name }}</span></div>
                                 {% else  %}
                                     <div class="col-md-2 col-lg-1" style="color: Black">{{ issue.fields.status.name }}</div>
                                 {% endif %}

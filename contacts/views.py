@@ -33,7 +33,7 @@ def sendtojira(request):
     jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
     issue_dict = {
         'project': {'key': 'SUP'},
-        'summary': city + ':' + summary,
+        'summary': city + ': ' + summary,
         'description': str(issuetext),
         'issuetype': {'name': 'Обращение_клиента'},
         'customfield_10517': {'value': problemclass},
@@ -42,8 +42,15 @@ def sendtojira(request):
 
     new_issue = jira.create_issue(fields=issue_dict)
 
-    return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
+    #return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
+    issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc',
+                                fields= 'created, comment, resolution, description, assignee, customfield_10517, summary, status',
+                                expand='changelog',)
+    for issue in issues:
+        issue.fields.created = datetime.strptime(issue.fields.created, '%Y-%m-%dT%H:%M:%S.%f%z')
 
+    deps = Department.objects.filter().order_by('dep_name')
+    return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
 
     #jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
     #issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc', maxResults=10)
