@@ -6,6 +6,9 @@ from .credentials import *
 from datetime import datetime
 from contacts.formiss import IssueForm
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 
 class CreateIssueView(TemplateView):
     template_name = 'contacts/create_task.html'
@@ -28,17 +31,22 @@ def sendtojira(request):
     summary = request.GET['summary']
     problemclass = request.GET['prclass']
     city = request.GET['issue-city']
+    author = request.GET['author']
 
 
     jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
     issue_dict = {
         'project': {'key': 'SUP'},
         'summary': city + ': ' + summary,
-        'description': str(issuetext),
+        'description': str(issuetext + '\n Заявитель:' + author),
         'issuetype': {'name': 'Обращение_клиента'},
         'customfield_10517': {'value': problemclass},
-        'assignee': {'name': 'eh'},
+        #'assignee': {'name': 'eh'},
     }
+    if problemclass == 'Оператор - исходящая телефония' or problemclass == 'Оператор - входящая телефония':
+        issue_dict['assignee'] = {'name': 'guru'}
+    else:
+        issue_dict['assignee'] = {'name': 'eh'}
 
     new_issue = jira.create_issue(fields=issue_dict)
 
@@ -50,7 +58,12 @@ def sendtojira(request):
         issue.fields.created = datetime.strptime(issue.fields.created, '%Y-%m-%dT%H:%M:%S.%f%z')
 
     deps = Department.objects.filter().order_by('dep_name')
-    return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
+
+    #issues_list(request)
+    return HttpResponseRedirect(reverse('issues'))
+    #return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
+
+
 
     #jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
     #issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc', maxResults=10)
