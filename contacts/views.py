@@ -87,7 +87,7 @@ def names_list(request):
 
 # List of persons by departments
 def department_list(request, pk):
-    names = Names.objects.filter(persona_dep=pk)
+    names = Names.objects.filter(persona_dep=pk).order_by('second_name')
     deps = Department.objects.filter().order_by('dep_name')
     #names = Names.objects.filter().order_by('second_name')
     return render(request, 'contacts/names_list.html', {'names': names, 'deps': deps})
@@ -113,4 +113,3 @@ def create_task(request):
                                                          'cities': cities,
                                                          'deps': deps
                                                         },)
-
