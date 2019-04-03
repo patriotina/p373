@@ -8,6 +8,7 @@ from contacts.formiss import IssueForm
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+import requests
 
 
 class CreateIssueView(TemplateView):
@@ -45,10 +46,18 @@ def sendtojira(request):
     }
     if problemclass == 'Оператор - исходящая телефония' or problemclass == 'Оператор - входящая телефония':
         issue_dict['assignee'] = {'name': 'guru'}
+        assignee = 'Guru'
     else:
         issue_dict['assignee'] = {'name': 'eh'}
+        assignee = 'Eh'
+
+
 
     new_issue = jira.create_issue(fields=issue_dict)
+
+    key = str(new_issue.key)
+    sendtotelega(city, summary, issuetext, author, assignee, key)
+
 
     #return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
     issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc',
@@ -72,6 +81,19 @@ def sendtojira(request):
 
     #deps = Department.objects.filter().order_by('dep_name')
     #return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
+
+
+def sendtotelega(city, summary, issuetext, author, assignee, key):
+    url = url_telega + '/bot' + tapsup_token
+    method = '/sendmessage?chat_id='
+    #chatid = city_chat_id[city]
+    style = '&parse_mode=Markdown'
+    #chatid = '-1001136274991'  #admin's chat
+    chatid = '65774702'
+    inline_url = '&reply_markup={"inline_keyboard":[[{"text":"issue", "url":"https://taptaxi.atlassian.net/browse/' + key + '"}]]}'
+    text = 'Создана задача по обращению: *' + author + '*\n *' + city + '*: ' + summary + '\n *Содержание обращения*: ' + issuetext + '\n' + 'Автоматически назначено на исполнителя: *' + assignee + '*'
+    url = url + method + chatid + '&text=' + text + style + inline_url
+    res = requests.get(url)
 
 
 # List of workers.
