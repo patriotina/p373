@@ -3,72 +3,13 @@
     {% block content %}
 
     <h1>Подать заявку!</h1>
-        <br>Заполните поля и нажмите кнопку - "Подать заявку". <br>
-        В поле тема - коротко укажите проблематику (например: "нет входящих на номер 900373", "ЦК не пополняется у позывного 12345", и т.п.)
-        Опишите ваше обращение максимально подробно(время появления ошибки, массовость или единичность случая, идентификаторы/позывные/номера и другие данные). В классификаторе необходимо выбрать область проблемы.</br>
-        Укажите ваши данные (или контакты руководителя кому сообщить о решении) и отправьте заявку ("Подать заявку"). Созданая вами заявка появится в списке задач (меню - "Задачи")</p>
+    <a class="container col-md-8">
+        <br>Заполните поля и нажмите кнопку - "Подать заявку".
+        </br>Укажите ваши данные (или контакты руководителя кому сообщить о решении) и отправьте заявку ("Подать заявку"). Созданая вами заявка появится в списке задач (меню-> <a href={% url 'issues' %}>Задачи</a>)
 
-        <br>Задать вопрос или сообщить об аварийных ситуациях можно в чате Telegram вашего города.</br>
-        Если вы не получили ответа на ваше срочное аварийное обращение в чате в течении 15 минут, звоните на дежурный номер: <a href="tel:+79226932620">+7(922)693 26 20</a></p>
-
-    <form method="get" action="/createissue">
-        {% csrf_token %}
-        {{ form.as_p }}
-    <div class="row">
-        <div class="col-5">
-            <p> Тема обращения:
-        </div>
-        <div class="col-7">
-            <input type="text" style="width:300px" name="summary">
-        </div>
+        <br>Задать вопрос или сообщить об аварийных ситуациях можно в чате Telegram вашего города.
+        </br>Если вы не получили ответа на ваше срочное аварийное обращение в чате в течении 15 минут, звоните на дежурный номер: <a href="tel:+79226932620">+7(922)693 26 20</a></p>
     </div>
-    <div class="row">
-        <div class="col-5">
-            Город:
-        </div>
-        <div class="col-7">
-            <select name="issue-city" style="width:300px">
-                {% for city in cities|dictsort:"city"%}
-                    <option value="{{ city.city }}">{{ city.city }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5">
-            Классификатор:
-        </div>
-        <div class="col-7">
-            <select name="prclass" style="width:300px">
-                <option disabled>Определите область проблемы</option>
-                {% for category in pclass %}
-                    <option value="{{ category }}">{{ category }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5">
-            Описание поломки:
-        </div>
-        <div class="col-7">
-            <textarea style="height:200px; width:300px" size="30" name="textissue"></textarea>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5">
-            Контактное лицо (автор заявки):
-        </div>
-        <div class="col-7">
-            <input type="text" style=" width:300px" name="author">
-        </div>
-    </div>
-    <div class="row">
-        <button type="submit">Подать заявку</button>
-
-    </div>
-    </form>
-    {{ issuetext }}
 
 <form method="get" action="/createissue">
     {% csrf_token %}
@@ -111,7 +52,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Sign in</button>
+        <button type="submit" class="btn btn-primary">Подать заявку</button>
 
     </div>
 
