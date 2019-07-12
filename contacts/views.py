@@ -98,7 +98,7 @@ def sendtotelega(city, summary, issuetext, author, assignee, key):
 
 # List of workers.
 def names_list(request):
-    names = Names.objects.filter().order_by('second_name')
+    names = Names.objects.filter(employ=True).order_by('second_name')
     deps = Department.objects.filter().order_by('dep_name')
     #names = Names.objects.prefetch_related("persona_name")
     #contacts = Contacts.objects.prefetch_related("persona_name")

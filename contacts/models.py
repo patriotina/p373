@@ -17,6 +17,12 @@ class Role(models.Model):
     def __str__(self):
         return self.role_name
 
+class City(models.Model):
+    city_name = models.CharField(blank = True, max_length=30)
+
+    def __str__(self):
+        return self.city_name
+
 
 class Names(models.Model):
     first_name = models.CharField(max_length=50)
@@ -28,6 +34,8 @@ class Names(models.Model):
     persona_dep = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
     persona_role = models.ForeignKey(Role, on_delete=models.DO_NOTHING)
     persona_photo = models.ImageField(upload_to='imgs', max_length=50, default='imgs/nophoto.png')
+    persona_city = models.ForeignKey(City, on_delete=models.DO_NOTHING, blank=True, null=True)
+    employ = models.BooleanField(default=True)
 
 
     def publish(self):

@@ -15,6 +15,7 @@ admin.site.register(Contacts)
 admin.site.register(ContactType)
 admin.site.register(Department)
 admin.site.register(Role)
+admin.site.register(City)
 
 
 
