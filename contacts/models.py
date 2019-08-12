@@ -17,6 +17,7 @@ class Role(models.Model):
     def __str__(self):
         return self.role_name
 
+
 class City(models.Model):
     city_name = models.CharField(blank=True, null=True, max_length=30)
 
