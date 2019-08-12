@@ -27,9 +27,9 @@ class City(models.Model):
 class Names(models.Model):
     first_name = models.CharField(max_length=50)
     second_name = models.CharField(max_length=80)
-    mobile_phone = models.CharField(max_length=11)
-    work_phone = models.CharField(max_length=10)
-    email = models.EmailField(max_length=50)
+    mobile_phone = models.CharField(max_length=11, blank=True, null=True)
+    work_phone = models.CharField(max_length=10, blank=True, null=True)
+    email = models.EmailField(max_length=50, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now)
     persona_dep = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
     persona_role = models.ForeignKey(Role, on_delete=models.DO_NOTHING)
