@@ -87,9 +87,10 @@ def sendtotelega(city, summary, issuetext, author, assignee, key):
     url = url_telega + '/bot' + tapsup_token
     method = '/sendmessage?chat_id='
     #chatid = city_chat_id[city]
+    chatid = city_chat_id[Support]
     style = '&parse_mode=Markdown'
     #chatid = '-1001136274991'  #admin's chat
-    chatid = '65774702'
+    #chatid = '65774702'
     inline_url = '&reply_markup={"inline_keyboard":[[{"text":"issue", "url":"https://taptaxi.atlassian.net/browse/' + key + '"}]]}'
     text = 'Создана задача по обращению: *' + author + '*\n *' + city + '*: ' + summary + '\n *Содержание обращения*: ' + issuetext + '\n' + 'Автоматически назначено на исполнителя: *' + assignee + '*'
     url = url + method + chatid + '&text=' + text + style + inline_url
