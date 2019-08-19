@@ -87,10 +87,8 @@ def sendtotelega(city, summary, issuetext, author, assignee, key):
     url = url_telega + '/bot' + tapsup_token
     method = '/sendmessage?chat_id='
     #chatid = city_chat_id[city]
-    chatid = city_chat_id[Support]
+    chatid = city_chat_id['Support']
     style = '&parse_mode=Markdown'
-    #chatid = '-1001136274991'  #admin's chat
-    #chatid = '65774702'
     inline_url = '&reply_markup={"inline_keyboard":[[{"text":"issue", "url":"https://taptaxi.atlassian.net/browse/' + key + '"}]]}'
     text = 'Создана задача по обращению: *' + author + '*\n *' + city + '*: ' + summary + '\n *Содержание обращения*: ' + issuetext + '\n' + 'Автоматически назначено на исполнителя: *' + assignee + '*'
     url = url + method + chatid + '&text=' + text + style + inline_url
@@ -101,19 +99,15 @@ def sendtotelega(city, summary, issuetext, author, assignee, key):
 def names_list(request):
     names = Names.objects.filter(employ=True).order_by('second_name')
     deps = Department.objects.filter().order_by('dep_name')
-    #names = Names.objects.prefetch_related("persona_name")
-    #contacts = Contacts.objects.prefetch_related("persona_name")
-
-#    print(names)
-    #print(contacts)
     return render(request, 'contacts/names_list.html', {'names': names, 'deps': deps})
+
 
 # List of persons by departments
 def department_list(request, pk):
     names = Names.objects.filter(persona_dep=pk, employ=True).order_by('second_name')
     deps = Department.objects.filter().order_by('dep_name')
-    #names = Names.objects.filter().order_by('second_name')
     return render(request, 'contacts/names_list.html', {'names': names, 'deps': deps})
+
 
 #List of user's issues with statuses
 def issues_list(request):
@@ -126,6 +120,7 @@ def issues_list(request):
 
     deps = Department.objects.filter().order_by('dep_name')
     return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
+
 
 #page for getting issue from user
 def create_task(request):
