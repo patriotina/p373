@@ -9,6 +9,9 @@ from contacts.formiss import IssueForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import requests
+import telebot
+from telebot import types
+
 
 
 
@@ -44,6 +47,15 @@ def alarm(request):
                      alrm_author=al_author,
                      alrm_city=al_city)
         alr.save()
+
+    bot = telebot.TeleBot(ttalarm)
+    #alm_message = 'AlarmOn;'
+    #city_alarm_list[c.message.chat.id] = 1
+    reply_keyboard = types.InlineKeyboardMarkup()
+    inl_button = types.InlineKeyboardButton(text="Исправлено", url='ya.ru')
+    reply_keyboard.row(inl_button)
+    bot.edit_message_text(chat_id=al_city, message_id=al_id, text='Взято в работу',
+                          reply_markup=reply_keyboard)
 
     return HttpResponseRedirect(reverse('create_task'))
 
