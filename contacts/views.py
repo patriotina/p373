@@ -40,6 +40,11 @@ def alarm(request):
     if check:
         al_end = datetime.now()
         Alarms.objects.filter(alrm_msg_id=al_id).update(alrm_datetime_end=al_end)
+        url = url_telega + '/bot' + ttalarm
+        method = '/deleteMessage?chat_id='
+        chatid = str(al_city)
+        url = url + method + chatid + '&message_id=' + str(al_id)
+        res = requests.get(url)
     else:
         al_start = datetime.now()
         alr = Alarms(alrm_msg_id=al_id,
@@ -51,15 +56,15 @@ def alarm(request):
     #bot = telebot.TeleBot(ttalarm)
     #alm_message = 'AlarmOn;'
     #city_alarm_list[c.message.chat.id] = 1
-    url = url_telega + '/bot' + ttalarm
-    method = '/editMessageText?chat_id='
-    # chatid = city_chat_id[city]
-    chatid = str(al_city)
-    style = '&parse_mode=Markdown'
-    inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено", "url":"help.373soft.ru/alarm?'  '"}]]}'
-    text = 'Взято в работу'
-    url = url + method + chatid + '&text=' + text + '&message_id=' + str(al_id) + style + inline_url
-    res = requests.get(url)
+        url = url_telega + '/bot' + ttalarm
+        method = '/editMessageText?chat_id='
+        # chatid = city_chat_id[city]
+        chatid = str(al_city)
+        style = '&parse_mode=Markdown'
+        inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено", "url":"help.373soft.ru/alarm?'  '"}]]}'
+        text = 'Взято в работу'
+        url = url + method + chatid + '&text=' + text + '&message_id=' + str(al_id) + style + inline_url
+        res = requests.get(url)
 
     # reply_keyboard = types.InlineKeyboardMarkup()
     # inl_button = types.InlineKeyboardButton(text="Исправлено", url='ya.ru')
