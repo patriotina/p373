@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import Names, ContactType, Contacts, Department
+from .models import Names, ContactType, Contacts, Department, Alarms
 from jira import JIRA
 from .credentials import *
 from datetime import datetime
@@ -9,6 +9,7 @@ from contacts.formiss import IssueForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import requests
+
 
 
 class CreateIssueView(TemplateView):
@@ -25,6 +26,26 @@ class CreateIssueView(TemplateView):
 
         args = {'form': form, 'text': text}
         return render(request, self.template_name, args)
+
+
+def alarm(request):
+    al_id = int(request.GET['alrm_msg_id'])
+    al_author = int(request.GET['alrm_author'])
+    al_city = int(request.GET['alrm_city'])
+
+    check = Alarms.objects.filter(alrm_msg_id=al_id)
+    if check:
+        al_end = datetime.now()
+        Alarms.objects.filter(alrm_msg_id=al_id).update(alrm_datetime_end=al_end)
+    else:
+        al_start = datetime.now()
+        alr = Alarms(alrm_msg_id=al_id,
+                     alrm_datetime_start=al_start,
+                     alrm_author=al_author,
+                     alrm_city=al_city)
+        alr.save()
+
+    return HttpResponseRedirect(reverse('create_task'))
 
 
 def sendtojira(request):

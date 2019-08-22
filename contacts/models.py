@@ -68,3 +68,11 @@ class Contacts(models.Model):
     def __str__(self):
         return self.contact_data
 
+
+class Alarms(models.Model):
+    alrm_msg_id = models.IntegerField()
+    alrm_datetime_start = models.DateTimeField(blank=True, null=True)
+    alrm_datetime_end = models.DateTimeField(blank=True, null=True)
+    alrm_author = models.IntegerField()
+    alrm_city = models.IntegerField()
+

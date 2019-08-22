@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^issues/$', views.issues_list, name='issues'),
     url(r'^create_task/$', views.create_task, name='create_task'),
     url(r'^createissue/$', views.sendtojira),
+    url(r'^alarm/$', views.alarm, name='alarm')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
