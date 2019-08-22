@@ -29,8 +29,7 @@ class CreateIssueView(TemplateView):
 
 def alarm(request):
     al_id = int(request.GET['alrm_msg_id'])
-    al_author = int(request.GET['alrm_author'])
-    al_city = int(request.GET['alrm_city'])
+
 
     check = Alarms.objects.filter(alrm_msg_id=al_id)
     if check:
@@ -38,11 +37,14 @@ def alarm(request):
         Alarms.objects.filter(alrm_msg_id=al_id).update(alrm_datetime_end=al_end)
         url = url_telega + '/bot' + ttalarm
         method = '/deleteMessage?chat_id='
-        chatid = str(al_city)
+        #chatid = str(al_city)
+        chatid = str(Alarms.objects.filter(alrm_msg_id=al_id).values('alrm_city'))
         url = url + method + chatid + '&message_id=' + str(al_id)
         res = requests.get(url)
     else:
         al_start = datetime.now()
+        al_author = int(request.GET['alrm_author'])
+        al_city = int(request.GET['alrm_city'])
         alr = Alarms(alrm_msg_id=al_id,
                      alrm_datetime_start=al_start,
                      alrm_author=al_author,
