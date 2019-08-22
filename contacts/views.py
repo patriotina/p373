@@ -48,14 +48,24 @@ def alarm(request):
                      alrm_city=al_city)
         alr.save()
 
-    bot = telebot.TeleBot(ttalarm)
+    #bot = telebot.TeleBot(ttalarm)
     #alm_message = 'AlarmOn;'
     #city_alarm_list[c.message.chat.id] = 1
-    reply_keyboard = types.InlineKeyboardMarkup()
-    inl_button = types.InlineKeyboardButton(text="Исправлено", url='ya.ru')
-    reply_keyboard.row(inl_button)
-    bot.edit_message_text(chat_id=al_city, message_id=al_id, text='Взято в работу',
-                          reply_markup=reply_keyboard)
+    url = url_telega + '/bot' + ttalarm
+    method = '/editMessageText?chat_id='
+    # chatid = city_chat_id[city]
+    chatid = str(al_city)
+    style = '&parse_mode=Markdown'
+    inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено", "url":"help.373soft.ru/alarm?'  '"}]]}'
+    text = 'Взято в работу'
+    url = url + method + chatid + '&text=' + text + '&message_id=' + str(al_id) + style + inline_url
+    res = requests.get(url)
+
+    # reply_keyboard = types.InlineKeyboardMarkup()
+    # inl_button = types.InlineKeyboardButton(text="Исправлено", url='ya.ru')
+    # reply_keyboard.row(inl_button)
+    # bot.edit_message_text(chat_id=al_city, message_id=al_id, text='Взято в работу',
+    #                       reply_markup=reply_keyboard)
 
     return HttpResponseRedirect(reverse('create_task'))
 
