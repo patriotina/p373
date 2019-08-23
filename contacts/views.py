@@ -59,7 +59,8 @@ def alarm(request):
         # chatid = city_chat_id[city]
         chatid = str(al_city)
         style = '&parse_mode=Markdown'
-        inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено", "url":"help.373soft.ru/alarm?alrm_msg_id=' + str(al_id) + '"}]]}'
+        inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено ✅", "callback_data":"AlarmDone"}]]}'
+        #inline_url = '&reply_markup={"inline_keyboard":[[{"text":"Исправлено ✅", "url":"help.373soft.ru/alarm?alrm_msg_id=' + str(al_id) + '"}]]}'
         # '&alrm_author=' + str(al_author) + '&alrm_city=' +str(al_city) +
         #+ str(al_id) + '&alrm_author=' + str(al_author) + '&alrm_city=' +str(al_city) +
         text = 'Взято в работу'
