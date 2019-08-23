@@ -38,8 +38,8 @@ def alarm(request):
         url = url_telega + '/bot' + ttalarm
         method = '/deleteMessage?chat_id='
         #chatid = str(al_city)
-        chatid = str(Alarms.objects.filter(alrm_msg_id=al_id).values('alrm_city'))
-        url = url + method + chatid + '&message_id=' + str(al_id)
+        chatid = Alarms.objects.get(alrm_msg_id=al_id)
+        url = url + method + str(chatid.alrm_city) + '&message_id=' + str(al_id)
         res = requests.get(url)
     else:
         al_start = datetime.now()
