@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+
+    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+
+    <script src='fullcalendar/packages/core/main.js'></script>
+    <script src='fullcalendar/packages/daygrid/main.js'></script>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ],
+            defaultDate: '2019-09-15',
+            editable: true,
+            eventLimit: true,
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2019-09-13'
+                }
+            ]
+        });
+
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body>
+  <h1>Calendar</h1>
+    <div id='calendar'></div>
+
+  </body>
+</html>

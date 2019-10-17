@@ -24,3 +24,4 @@ admin.site.register(Alarms, AlarmsList)
 
 
 
+

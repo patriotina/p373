@@ -9,7 +9,8 @@
                 <div class="col-lg-2">Дата</div>
                 <div class="col-lg-1">Заявка</div>
                 <div class="col-lg-3">Категория</div>
-                <div class="col-lg-5">Тема обращения</div>
+                <div class="col-lg-1">Город</div>
+                <div class="col-lg-4">Тема обращения</div>
                 <div class="col-lg-1">Статус</div>
 
             </div>
@@ -21,10 +22,12 @@
                     <div class="card-header" id="headingOne">
                       <h5 class="mb-0">
                         <div class="acc-header" data-toggle="collapse" data-target="#collapse{{ issue.key }}" aria-expanded="false" aria-controls="collapse{{ issue.key }}">
-                            <div class="row"><div class="col-lg-2">{{ issue.fields.created|date:"d M Y H:m" }}</div>
+                            <div class="row">
+                                <div class="col-lg-2">{{ issue.fields.created|date:"d M Y H:m" }}</div>
                                 <div class="col-lg-1"><a href="https://taptaxi.atlassian.net/browse/{{ issue.key }}" target="_blank">{{ issue.key }}</a></div>
-                            <div class="col-lg-3">{{ issue.fields.customfield_10517 }}</div>
-                            <div class="col-lg-5">{{ issue.fields.summary }}</div>
+                                <div class="col-lg-3">{{ issue.fields.customfield_10517 }}</div>
+                                <div class="col-lg-1">{{ issue.fields.customfield_10534 }}</div>
+                                <div class="col-lg-4">{{ issue.fields.summary }}</div>
                                 {% if issue.fields.status.name == "Закрыто" %}
                                     <div class="col-md-2 col-lg-1"><span class="badge badge-success">{{ issue.fields.status.name }}</span></div>
                                 {% elif issue.fields.status.name == 'в очереди'%}

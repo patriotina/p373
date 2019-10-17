@@ -27,6 +27,22 @@ class CreateIssueView(TemplateView):
         return render(request, self.template_name, args)
 
 
+def statistic(request):
+    dif = []
+    alarms = Alarms.objects.filter()
+    for alarm in alarms:
+        dif.append(alarm.alrm_datetime_end - alarm.alrm_datetime_start)
+        print(dif)
+#    names = Names.objects.filter(employ=True).order_by('second_name')
+#    deps = Department.objects.filter().order_by('dep_name')
+    return render(request, 'contacts/statistic.html', {'alarms': alarms, 'diff':dif})
+
+
+def calendar(request):
+    return render(request, 'contacts/calendar.html')
+
+
+
 def alarm(request):
     al_id = int(request.GET['alrm_msg_id'])
     al_city = int(request.GET['alrm_city'])
@@ -81,6 +97,7 @@ def sendtojira(request):
     problemclass = request.GET['prclass']
     city = request.GET['issue-city']
     author = request.GET['author']
+    #attach_path = request.GET['attachfile']
 
 
     jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
@@ -90,26 +107,32 @@ def sendtojira(request):
         'description': str(issuetext + '\n Заявитель:' + author),
         'issuetype': {'name': 'Обращение_клиента'},
         'customfield_10517': {'value': problemclass},
+        'customfield_10534': {'value': city},
         #'assignee': {'name': 'eh'},
     }
     if problemclass == 'Оператор - исходящая телефония' or problemclass == 'Оператор - входящая телефония':
         issue_dict['assignee'] = {'name': 'guru'}
         assignee = 'Guru'
     else:
-        issue_dict['assignee'] = {'name': 'eh'}
-        assignee = 'Eh'
+        issue_dict['assignee'] = {'name': 'sterhov.a'}
+        assignee = 'sterhov.a'
 
 
 
     new_issue = jira.create_issue(fields=issue_dict)
 
+    #Добавить аттач к таске если таковой имеется
+    #print(new_issue)
+    #print(attach_path)
+    #jira.add_attachment(issue=new_issue, attachment=attach_path)
+
     key = str(new_issue.key)
-    sendtotelega(city, summary, issuetext, author, assignee, key)
+    #sendtotelega(city, summary, issuetext, author, assignee, key)
 
 
     #return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
     issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc',
-                                fields= 'created, comment, resolution, description, assignee, customfield_10517, summary, status',
+                                fields='created, comment, resolution, description, assignee, customfield_10517, customfield_10534, summary, status',
                                 expand='changelog',)
     for issue in issues:
         issue.fields.created = datetime.strptime(issue.fields.created, '%Y-%m-%dT%H:%M:%S.%f%z')
@@ -161,7 +184,7 @@ def department_list(request, pk):
 def issues_list(request):
     jira = JIRA(basic_auth=(jira_user, jira_token), options = {'server': jira_server})
     issues = jira.search_issues('project = SUP AND issuetype=Обращение_клиента order by created desc',
-                                fields= 'created, comment, resolution, description, assignee, customfield_10517, summary, status',
+                                fields= 'created, comment, resolution, description, assignee, customfield_10517, customfield_10534, summary, status',
                                 expand='changelog',)
     for issue in issues:
         issue.fields.created = datetime.strptime(issue.fields.created, '%Y-%m-%dT%H:%M:%S.%f%z')

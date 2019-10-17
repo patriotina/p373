@@ -1,0 +1,13 @@
+
+    {% extends 'contacts/base.html' %}
+    {% block content %}
+
+
+     {% for alarm in alarms %}
+        {{ alarm.alrm_datetime_start | date:'d.m.Y H:i'}} - {{ alarm.alrm_datetime_end | date:'d.m.Y H:i'}} - {{ alarm.alrm_datetime_start|timesince:alarm.alrm_datetime_end }}<br>
+
+         {{ diff }}
+
+    {% endfor %}
+
+{% endblock %}
