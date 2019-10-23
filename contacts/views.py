@@ -127,7 +127,7 @@ def sendtojira(request):
     #jira.add_attachment(issue=new_issue, attachment=attach_path)
 
     key = str(new_issue.key)
-    #sendtotelega(city, summary, issuetext, author, assignee, key)
+    sendtotelega(city, summary, issuetext, author, assignee, key)
 
 
     #return render(request, 'contacts/create_task.html', {'issuetext':issue_dict})
