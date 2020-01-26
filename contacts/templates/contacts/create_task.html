@@ -35,15 +35,21 @@
                 <input type="text" class="form-control" id="inputSubject" name="summary" placeholder="Что-то пошло не так..." required>
             </div>
         </div>
+        <div class="form-row">
 
-        <div class="form-group col-md-8">
-            <label for="inputState">Область проблемы</label>
-            <select id="inputState" class="form-control" name="prclass" required>
-                <option selected disabled value="">Какая часть сломалась...</option>
-                {% for category in pclass %}
-                    <option value="{{ category }}">{{ category }}</option>
-                {% endfor %}
-            </select>
+            <div class="form-group col-md-8">
+                <label for="inputState">Область проблемы</label>
+                <select id="inputState" class="form-control" name="prclass" required>
+                    <option selected disabled value="">Какая часть сломалась...</option>
+                    {% for category in pclass %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="b2p" value="b2pay">
+                <label class="form-check-label" for="exampleCheck1">Best2Pay</label>
+            </div>
         </div>
         <div class="form-group">
             <label for="inputComment">Подробности/описание</label>

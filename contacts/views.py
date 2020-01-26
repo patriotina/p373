@@ -91,6 +91,7 @@ def alarm(request):
     return HttpResponseRedirect(reverse('create_task'))
 
 
+#submit creation form and create an issue
 def sendtojira(request):
     issuetext = request.GET['textissue']
     summary = request.GET['summary']
@@ -98,6 +99,8 @@ def sendtojira(request):
     city = request.GET['issue-city']
     author = request.GET['author']
     #attach_path = request.GET['attachfile']
+    b2p = request.GET['b2p']
+    print(b2p)
 
 
     jira = JIRA(basic_auth=(jira_user, jira_token), options={'server': jira_server})
@@ -119,14 +122,15 @@ def sendtojira(request):
 
 
 
-    new_issue = jira.create_issue(fields=issue_dict)
+    ##new_issue = jira.create_issue(fields=issue_dict)
 
     #Добавить аттач к таске если таковой имеется
     #print(new_issue)
     #print(attach_path)
     #jira.add_attachment(issue=new_issue, attachment=attach_path)
 
-    key = str(new_issue.key)
+    ##key = str(new_issue.key)
+    key = str(99999)
     sendtotelega(city, summary, issuetext, author, assignee, key)
 
 
