@@ -1,0 +1,92 @@
+
+    {% extends 'contacts/base.html' %}
+    {% block content %}
+
+    <div class="content container-fluid">
+    <div class="row">
+        <div class="col">
+            <strong><div class="row">
+                <div class="col-lg-2">Дата</div>
+                <div class="col-lg-1">Заявка</div>
+                <div class="col-lg-3">Категория</div>
+                <div class="col-lg-1">Город</div>
+                <div class="col-lg-4">Тема обращения</div>
+                <div class="col-lg-1">Статус</div>
+
+            </div>
+            </strong>
+           <div id="accordion">
+    {% for issue in issues %}
+        <div class="card">
+                   <div class="persona">
+                    <div class="card-header" id="headingOne">
+                      <h5 class="mb-0">
+                        <div class="acc-header" data-toggle="collapse" data-target="#collapse{{ issue.id }}" aria-expanded="false" aria-controls="collapse{{ issue.id }}">
+                            <div class="row">
+                                <div class="col-lg-2">{{ issue.created }}</div>
+                                <div class="col-lg-1"><a href="https://taptaxi.myjetbrains.com/youtrack/issue/{{ issue.id }}" target="_blank">{{ issue.id }}</a></div>
+                                <div class="col-lg-3">{{ issue.Классификатор }}</div>
+                                <div class="col-lg-1">{{ issue.City }}</div>
+                                <div class="col-lg-4">{{ issue.summary }}</div>
+                                {% if issue.State == "Закрыто" %}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-success">{{ issue.State }}</span></div>
+                                {% elif issue.State == 'в очереди'%}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-danger">{{ issue.State }}</span></div>
+                                {% elif issue.State == 'Готово'%}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-info">{{ issue.State }}</span></div>
+                                {% elif  issue.State == 'В работе' %}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-warning">{{ issue.State }}</span></div>
+                                {% elif  issue.State == 'Отклонена' %}
+                                    <div class="col-md-2 col-lg-1"><span class="badge badge-secondary">{{ issue.State }}</span></div>
+                                {% else  %}
+                                    <div class="col-md-2 col-lg-1" style="color: Black">{{ issue.State }}</div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                      </h5>
+                    </div>
+                     <div id="collapse{{ issue.id }}" class="collapse" aria-labelledby="heading{{ issue.id }}" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="status">
+                                    <div class="row">
+                                        <div class="col-md-12">Исполнитель: {{ issue.Assignee }}</div>
+
+                                    </div>
+                                </div>
+
+                                <div class="descr">
+                                    <div class="descr__title">Описание</div>
+                                    <div class="row">
+                                        <div class="col-md-8">{{ issue.description }}</div>
+                                    </div>
+                                </div>
+
+                             <!--   <div class="comments">
+                                    <div class="comments__title">Комментарии</div>
+                                    {% for comm in issue.fields.comment.comments %}
+                                        <div class="comment">
+                                            <div class="row">
+                                                <div class="col-md-12">{{ comm.author }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">{{ comm.body }}</div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                             -->
+
+                            </div>
+                        </div>
+                     </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
+        </div>
+    </div>
+    </div>
+
+    {% endblock %}

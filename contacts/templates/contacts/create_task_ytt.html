@@ -1,0 +1,74 @@
+
+    {% extends 'contacts/base.html' %}
+    {% block content %}
+
+    <h1>Подать заявку!</h1>
+    <a class="container col-md-8">
+        <br>Заполните поля и нажмите кнопку - "Подать заявку".
+        </br>Укажите ваши данные (или контакты руководителя кому сообщить о решении) и отправьте заявку ("Подать заявку"). Созданая вами заявка появится в списке задач (меню-> <a href={% url 'issues' %}>Задачи</a>)
+
+        <br>Задать вопрос или сообщить об аварийных ситуациях можно в чате Telegram вашего города.
+        </br>Если вы не получили ответа на ваше срочное аварийное обращение в чате в течении 15 минут, звоните на дежурный номер: <a href="tel:+79226932620">+7(922)693 26 20</a></p>
+    </div>
+
+<form method="get" action="/createissue">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="container col-md-6">
+        <div class="form-group">
+            <label for="inputAuthor">Автор заявки</label>
+            <input type="text" class="form-control" id="inputAuthor" name="author" placeholder="Ваше Имя или должность" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputCity">Город</label>
+                <select id="inputCity" class="form-control" name="issue-city" required>
+                    <option selected disabled value="">Выбери...</option>
+                    {% for city in cities|dictsort:"city"%}
+                        <option value="{{ city.city }}">{{ city.city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group col-md-8">
+                <label for="inputSubject">Тема обращения:</label>
+                <input type="text" class="form-control" id="inputSubject" name="summary" placeholder="Что-то пошло не так..." required>
+            </div>
+        </div>
+        <div class="form-row">
+
+            <div class="form-group col-md-8">
+                <label for="inputState">Область проблемы</label>
+                <select id="inputState" class="form-control" name="prclass" required>
+                    <option selected disabled value="">Какая часть сломалась...</option>
+                    {% for category in pclass %}
+                        <option value="{{ category }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="b2p" value="b2pay">
+                <label class="form-check-label" for="exampleCheck1">Best2Pay</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputComment">Подробности/описание</label>
+            <textarea required style="height:200px;"  class="form-control" name="textissue" id="inputComment" placeholder="Точные данные о сбое: Время, позывной, номер телефона, примеры звонков, периодичность сбоя, когда стало проявляться, массовый или выборочный сбой и прочая информация помогающая идентифицировать проблему точнее..."></textarea>
+            <!-- <input type="text" class="form-control" id="inputAddress" placeholder="Точные данные о сбое: Время, позывной, номер телефона, как часто, массовый или выборочный сбой и другое">-->
+        </div>
+
+        <!--<div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" name="attachfile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        -->
+
+        <button type="submit" class="btn btn-primary">Подать заявку</button>
+
+    </div>
+
+</form>
+
+
+    {% endblock %}
+
