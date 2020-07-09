@@ -9,6 +9,7 @@ from contacts.formiss import IssueForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 import requests
+from youtrack.connection import Connection as YouTrack
 
 
 class CreateIssueView(TemplateView):
@@ -195,6 +196,19 @@ def issues_list(request):
 
     deps = Department.objects.filter().order_by('dep_name')
     return render(request, 'contacts/issues.html', {'issues': issues, 'deps': deps})
+
+
+#List of user's issues with statuses from YouTrack
+def issues_list_yt(request):
+    yt = YouTrack('https://taptaxi.myjetbrains.com/youtrack/', token=ytt)
+    issues = yt.getIssues('SUP', 'Тип: Обращение_клиента сортировать: создана по убыв.', '', '50')
+
+    #for issue in issues:
+        #issue.created = datetime.strptime(issue.created, '%Y-%m-%dT%H:%M:%S.%f%z')
+
+    deps = Department.objects.filter().order_by('dep_name')
+    return render(request, 'contacts/issues_yt.html', {'issues': issues, 'deps': deps})
+
 
 
 #page for getting issue from user
